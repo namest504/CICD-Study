@@ -49,5 +49,15 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PW }}
         docker build -t ${{ secrets.DOCKER_ID }}/spring-cicd .
-        docker push ${{ secrets.USERNAME }}/spring-cicd
-    
+        docker push ${{ secrets.DOCKER_ID }}/spring-cicd
+        
+    - name: EC2 Deploy
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: | 
+            docker pull ${{ secrets.DOCKER_ID }}/spring-cicd
+            docker stop spring-cicd
+            docker run -d --rm --name spring-cicd -p 8080:8080 ${{ secrets.DOCKER_ID }}/spring-cicd
