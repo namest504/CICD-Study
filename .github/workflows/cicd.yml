@@ -36,8 +36,14 @@ jobs:
          echo "${{ secrets.PROPERTIES }}" > ./application.properties
       shell: bash	
      
-     
+      # gradle을 통해 소스를 빌드.
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
+      run: |
+          chmod +x ./gradlew
+          ./gradlew clean build -x test
+    
+    #- name: Build with Gradle
+    #  uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+    #  with:
+    #    arguments: build
+    
