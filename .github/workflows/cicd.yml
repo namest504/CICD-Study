@@ -29,12 +29,18 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
+    - uses: actions/checkout@v3
     - name: Make application.properties
       run: |
-         cd ./src/main/resources
-         touch ./application.properties
-         echo "${{ secrets.PROPERTIES }}" > ./application.properties
-      shell: bash	
+        touch ./src/main/resources/application.properties
+        echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
+        cat ./src/main/resources/application.properties
+        
+    #- name: Make application.properties
+    #  run: |
+    #     cd ./src/main/resources
+    #     touch ./application.properties
+    #     echo "${{ secrets.PROPERTIES }}" > ./application.properties
      
     - name: Build with Gradle
       run: |
