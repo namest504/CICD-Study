@@ -34,8 +34,9 @@ jobs:
     - name: Make application.properties
       run: |
           mkdir -p src/main/resources
-          echo "${{ secrets.PROPERTIES }}" | base64 --decode > src/main/resources/application.properties
+          echo "${{ secrets.PROPERTIES }}" > src/main/resources/application.properties
           find src
+    #    echo "${{ secrets.PROPERTIES }}" | base64 --decode > src/main/resources/application.properties
     #    touch ./src/main/resources/application.properties
     #    echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.properties
     #    cat ./src/main/resources/application.properties
