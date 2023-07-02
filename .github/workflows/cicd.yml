@@ -29,12 +29,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
+    
     - uses: actions/checkout@v3
     - name: Make application.properties
       run: |
-        touch ./src/main/resources/application.properties
-        echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application.properties
-        cat ./src/main/resources/application.properties
+          mkdir -p src/main/resources
+          echo "${{ secrets.PROPERTIES }}" | base64 --decode > src/main/resources/application.properties
+          find src
+    #    touch ./src/main/resources/application.properties
+    #    echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.properties
+    #    cat ./src/main/resources/application.properties
         
     #- name: Make application.properties
     #  run: |
