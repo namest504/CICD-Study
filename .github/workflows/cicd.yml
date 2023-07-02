@@ -36,21 +36,19 @@ jobs:
           mkdir -p src/main/resources
           echo "${{ secrets.PROPERTIES }}" > src/main/resources/application.properties
           find src
-    #    echo "${{ secrets.PROPERTIES }}" | base64 --decode > src/main/resources/application.properties
-    #    touch ./src/main/resources/application.properties
-    #    echo "${{ secrets.PROPERTIES }}" > ./src/main/resources/application.properties
-    #    cat ./src/main/resources/application.properties
-        
-    #- name: Make application.properties
-    #  run: |
-    #     cd ./src/main/resources
-    #     touch ./application.properties
-    #     echo "${{ secrets.PROPERTIES }}" > ./application.properties
-     
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      shell: bash
+
     - name: Build with Gradle
-      run: |
-          chmod +x ./gradlew
-          ./gradlew clean build -x test
+      run: ./gradlew build -x test -Pprofile=${{ env.CONTEXT }}
+      shell: bash
+     
+    #- name: Build with Gradle
+    #  run: |
+    #      chmod +x ./gradlew
+    #      ./gradlew clean build -x test
     
     #- name: Build with Gradle
     #  uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
