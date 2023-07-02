@@ -44,4 +44,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       shell: bash
+
+    - name: Docker build
+      run: |
+        docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PW }}
+        docker build -t ${{ secrets.DOCKER_ID }}/spring-cicd .
+        docker push ${{ secrets.USERNAME }}/spring-cicd
     
