@@ -19,4 +19,9 @@ public class HelloController {
     public String hello2() {
         return TEST_STRING;
     }
+
+    @GetMapping("/done")
+    public String done() {
+        return "done!!!!!!!!";
+    }
 }
