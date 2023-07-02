@@ -58,6 +58,8 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_KEY }}
         script: | 
-            whoami
+            docker pull ${{ secrets.DOCKER_ID }}/spring-cicd
+            docker stop spring-cicd
+            docker run -d --rm --name spring-cicd -p 8080:8080 spring-cicd
       
     
